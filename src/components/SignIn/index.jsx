@@ -9,6 +9,7 @@ const Signin = ({ onSignin }) => {
   const [password, setPassword] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [showAuthCode, setShowAuthCode] = useState(false);
+  const [error, setError] = useState("");
   const history = useHistory();
 
   const signIn = async () => {
@@ -18,6 +19,7 @@ const Signin = ({ onSignin }) => {
       onSignin();
     } catch (error) {
       console.log("error signing in", error);
+      setError(error.message);
     }
   };
 
@@ -28,6 +30,7 @@ const Signin = ({ onSignin }) => {
       setShowAuthCode(true);
     } catch (error) {
       console.log("error signing up", error);
+      setError(error.message);
     }
   };
 
@@ -38,13 +41,14 @@ const Signin = ({ onSignin }) => {
       setShowAuthCode(false);
     } catch (error) {
       console.log("error signing up", error);
+      setError(error.message);
     }
   };
   return (
     <div className="login">
       <TextField
         id="username"
-        label="Username"
+        label="E-mail"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -79,6 +83,7 @@ const Signin = ({ onSignin }) => {
           </Button>
         </div>
       )}
+      <h4 style={{ color: "red" }}>{error}</h4>
     </div>
   );
 };

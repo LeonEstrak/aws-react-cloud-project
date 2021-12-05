@@ -53,9 +53,11 @@ function App() {
             </p>
           </h2>
           {loggedIn ? (
-            <Button onClick={signOut} variant="contained" color="primary">
-              Log Out
-            </Button>
+            <Link to="/signin">
+              <Button onClick={signOut} variant="contained" color="primary">
+                Log Out
+              </Button>
+            </Link>
           ) : (
             <Link to="/signin">
               <Button variant="contained" color="primary">

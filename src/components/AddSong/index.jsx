@@ -10,14 +10,19 @@ import { IconButton, TextField } from "@material-ui/core";
 import PublishIcon from "@material-ui/icons/Publish";
 
 const AddSong = ({ onUpload }) => {
-  const [songData, setSongData] = useState({});
+  const [songData, setSongData] = useState({
+    title: "No Title",
+    description: "No Description",
+    owner: "No Artist",
+  });
   const [mp3Data, setMp3Data] = useState();
+  const [disable, setDisable] = useState(false);
 
   const uploadSong = async () => {
     //Upload the song
     console.log("songData", songData);
     const { title, description, owner } = songData;
-
+    setDisable(true);
     try {
       const { key } = await Storage.put(`${uuid()}.mp3`, mp3Data, {
         contentType: "audio/mp3",
@@ -37,6 +42,7 @@ const AddSong = ({ onUpload }) => {
     } catch (error) {
       console.log(error);
     }
+    setDisable(false);
     onUpload();
   };
 
@@ -64,7 +70,7 @@ const AddSong = ({ onUpload }) => {
         accept="audio/mp3"
         onChange={(e) => setMp3Data(e.target.files[0])}
       />
-      <IconButton onClick={uploadSong}>
+      <IconButton onClick={uploadSong} disabled={disable}>
         <PublishIcon />
       </IconButton>
     </div>
