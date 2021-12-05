@@ -67,7 +67,11 @@ function App() {
           )}
         </header>
         <Route exact path="/">
-          <SongList />
+          {loggedIn ? (
+            <SongList />
+          ) : (
+            <h2>Log In To View The Songs and Playlists</h2>
+          )}
         </Route>
         <Route path="/signin">
           <SignIn onSignin={assessLoggedInState} />
